@@ -1,0 +1,62 @@
+import React from 'react';
+
+const defaultOptions = {
+  '0': false,
+  '1/2': false,
+  '1': false,
+  '2': false,
+  '3': false,
+  '5': false,
+  '8': false,
+  '13': false,
+  '20': false,
+  '40': false,
+  '100': false,
+  '?': false
+};
+
+export default class Cards extends React.Component {
+  constructor (props) {
+    super(props);
+    this.defaultOptions = {};
+    props.options.forEach(option => {
+      this.defaultOptions[option] = false;
+    });
+    this.state = Object.assign({}, this.defaultOptions);
+  }
+  select (key, e) {
+    let newState = Object.assign({}, this.defaultOptions);
+    newState[key] = !this.state[key];
+    this.setState(newState);
+    e.preventDefault();
+  }
+  calcLayout (numberOfOptions) {
+    if (numberOfOptions === 6) {
+      return 'col2';
+    } else if (numberofOptions === 12) {
+      return 'col3';
+    }
+  }
+  render() {
+    var options = Object.keys(this.state);
+    var layout = this.calcLayout(options.length);
+    return (
+      <ul id="cards">
+        {options.map(key => {
+            let active = this.state[key];
+            let css = layout + ' ' + (active ? 'active' : '');
+            return (
+              <li key={key}>
+                <a
+                  href
+                  onClick={this.select.bind(this, key)}
+                  className={css}>
+                  {key}
+                </a>
+              </li>
+            );
+          })}
+      </ul>
+    );
+  }
+}
