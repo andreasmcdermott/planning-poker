@@ -1,46 +1,37 @@
-import React from 'react';
+import React from 'react'
+import {Link} from 'react-router'
 
 export default class Cards extends React.Component {
   constructor (props) {
-    super(props);
-    this.state = { active: null, options: props.options, layout: null };
-    this.state.layout = this.calcLayout();
-  }
-  select (option, e) {
-    this.state.active = option;
-    this.setState(this.state);
-    e.preventDefault();
-  }
-  unselect (e) {
-    this.state.active = null;
-    this.setState(this.state);
-    e.preventDefault();
+    super(props)
+    this.state = { options: props.options, layout: null }
+    this.state.layout = this.calcLayout()
   }
   handleResize () {
-    let layout = this.calcLayout();
-    this.state.layout = layout;
-    this.setState(this.state);
+    let layout = this.calcLayout()
+    this.state.layout = layout
+    this.setState(this.state)
   }
   componentDidMount () {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('resize', this.handleResize.bind(this))
   }
   calcLayout () {
-    let menuHeight = 94;
-    let outerSpace = 20;
-    let cardSpace = 10;
-    let height = window.innerHeight - menuHeight - outerSpace * 2;
-    let width = window.innerWidth - outerSpace * 2;
+    let menuHeight = 94
+    let outerSpace = 20
+    let cardSpace = 10
+    let height = window.innerHeight - menuHeight - outerSpace * 2
+    let width = window.innerWidth - outerSpace * 2
     
-    let numColumns = 1;
+    let numColumns = 1
     if (this.state.options.length <= 6) { // 2 columns
-      numColumns = 2;
+      numColumns = 2
     } else if (this.state.options.length <= 12) { // 3 columns
-      numColumns = 3;
+      numColumns = 3
     } else if (this.state.options.length <= 20) { // 4 columns
-      numColumns = 4;
+      numColumns = 4
     }
     
-    let cardSize = (width < height ? (width / numColumns) : (height / numColumns)) - cardSpace * 2;
+    let cardSize = (width < height ? (width / numColumns) : (height / numColumns)) - cardSpace * 2
     
     return {
       selected: {
@@ -55,32 +46,31 @@ export default class Cards extends React.Component {
         lineHeight: cardSize + 'px',
         margin: cardSpace
       }
-    };
+    }
   }
   render() {
-    return (
-      <ul id="cards">
-        <li key={'active'} className={this.state.active !== null ? 'selected active' : 'selected'}>
-          <a
-            style={this.state.layout.selected}
-            href
-            onClick={this.unselect.bind(this)}>
-            {this.state.active}
-          </a>
-        </li>
-        {this.state.options.map(option => {
-            return (
-              <li key={option}>
-                <a 
-                  style={this.state.layout.card}
-                  href
-                  onClick={this.select.bind(this, option)}>
-                  {option}
-                </a>
-              </li>
-            );
-          })}
-      </ul>
-    );
+    console.log(this.props.children)
+    if (this.props.children) {
+      return (
+        <div>
+          {this.props.children}
+        </div>
+      )
+    } else {
+      return (
+        <ul id="cards">
+          {this.state.options.map(option => {
+              return (
+                <li key={option}>
+                  <Link to={`/standard/${option}`}
+                    style={this.state.layout.card}>
+                    {option}
+                  </Link>
+                </li>
+              );
+            })}
+        </ul>
+      )
+    }
   }
 }

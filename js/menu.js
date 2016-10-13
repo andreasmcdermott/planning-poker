@@ -6,8 +6,8 @@ const Menu = () => (
     <h1>Planning Poker</h1>
     <nav>
       <ul>
-        <li><NavLink to="/standard">Standard</NavLink></li>
-        <li><NavLink to="/tshirt">T-Shirt</NavLink></li>
+        <li><NavLink to="/standards">Standard</NavLink></li>
+        <li><NavLink to="/tshirts">T-Shirt</NavLink></li>
       </ul>
     </nav>
   </header>
