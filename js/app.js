@@ -1,13 +1,11 @@
-import React from 'react';
-import Menu from './menu';
+import React from 'react'
+import Menu from './menu'
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Menu/>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+const App = ({children}) => (
+  <div>
+    <Menu/>
+    {children}
+  </div>
+)
+
+export default App

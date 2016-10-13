@@ -7,12 +7,19 @@
     "dev": "webpack-dev-server --inline --hot --no-info --port 3000 --host 0.0.0.0",
     "build": "webpack --optimize-minimize --optimize-dedupe"
   },
+  "xo": {
+    "semicolon": false,
+    "space": true,
+    "esnext": true
+  },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router": "^2.0.0"
+    "react-redux": "^4.4.5",
+    "react-router": "^2.0.0",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",
@@ -25,6 +32,7 @@
     "stylus": "^0.54.2",
     "stylus-loader": "^2.0.0",
     "webpack": "^1.12.12",
-    "webpack-dev-server": "^1.12.1"
+    "webpack-dev-server": "^1.12.1",
+    "xo": "^0.17.0"
   }
 }
