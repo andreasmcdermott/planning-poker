@@ -11,12 +11,11 @@ ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRedirect to="/standards" />
-      <Route path="/standards" component={Standards}>
-        <Route path="/standard/:val" component={ActiveCard}/>
-      </Route>
-      <Route path="/tshirts" component={TShirts}>
-        <Route path="/tshirt/:val" component={ActiveCard}/>
-      </Route>
+      
+      <Route path="standards" component={Standards} />
+      <Route path="standard/:val" component={ActiveCard}/>
+      <Route path="tshirts" component={TShirts} />
+      <Route path="tshirt/:val" component={ActiveCard} />
       <Redirect from="*" to="/"/>
     </Route>
   </Router>,

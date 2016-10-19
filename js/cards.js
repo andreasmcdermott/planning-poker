@@ -6,6 +6,7 @@ export default class Cards extends React.Component {
     super(props)
     this.state = { options: props.options, layout: null }
     this.state.layout = this.calcLayout()
+    this.render = this.render.bind(this)
   }
   handleResize () {
     let layout = this.calcLayout()
@@ -49,7 +50,7 @@ export default class Cards extends React.Component {
     }
   }
   render() {
-    console.log(this.props.children)
+    console.log(this.props)
     if (this.props.children) {
       return (
         <div>
