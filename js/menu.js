@@ -1,13 +1,13 @@
 import React from 'react'
-import NavLink from './navlink'
+import {Link} from 'react-router'
 
 const Menu = () => (
-  <header id="menu">
+  <header className="menu" role="banner">
     <h1>Planning Poker</h1>
-    <nav>
-      <ul>
-        <li><NavLink to="/standards">Standard</NavLink></li>
-        <li><NavLink to="/tshirts">T-Shirt</NavLink></li>
+    <nav role="navigation">
+      <ul role="presentation">
+        <li role="presentation"><Link to="/tshirts" activeClassName="active">T-Shirt</Link></li>
+        <li role="presentation"><Link to="/standards" activeClassName="active">Standard</Link></li>
       </ul>
     </nav>
   </header>

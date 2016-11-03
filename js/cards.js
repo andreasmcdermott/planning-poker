@@ -1,20 +1,15 @@
 import React from 'react'
-import {Link} from 'react-router'
+import {Match, Link} from 'react-router'
+import ActiveCard from './activecard'
 
 export default class Cards extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { options: props.options, layout: null }
-    this.state.layout = this.calcLayout()
-    this.render = this.render.bind(this)
-  }
-  handleResize () {
-    let layout = this.calcLayout()
-    this.state.layout = layout
-    this.setState(this.state)
+    this.state = {layout: this.calcLayout()}
+    this.calcLayout = this.calcLayout.bind(this)
   }
   componentDidMount () {
-    window.addEventListener('resize', this.handleResize.bind(this))
+    window.addEventListener('resize', () => this.setState({layout: this.calcLayout()}))
   }
   calcLayout () {
     let menuHeight = 94
@@ -24,11 +19,11 @@ export default class Cards extends React.Component {
     let width = window.innerWidth - outerSpace * 2
     
     let numColumns = 1
-    if (this.state.options.length <= 6) { // 2 columns
+    if (this.props.options.length <= 6) { // 2 columns
       numColumns = 2
-    } else if (this.state.options.length <= 12) { // 3 columns
+    } else if (this.props.options.length <= 12) { // 3 columns
       numColumns = 3
-    } else if (this.state.options.length <= 20) { // 4 columns
+    } else if (this.props.options.length <= 20) { // 4 columns
       numColumns = 4
     }
     
@@ -50,28 +45,21 @@ export default class Cards extends React.Component {
     }
   }
   render() {
-    console.log(this.props)
-    if (this.props.children) {
-      return (
-        <div>
-          {this.props.children}
-        </div>
-      )
-    } else {
-      return (
-        <ul id="cards">
-          {this.state.options.map(option => {
-              return (
-                <li key={option}>
-                  <Link to={`/standard/${option}`}
-                    style={this.state.layout.card}>
-                    {option}
-                  </Link>
-                </li>
-              );
-            })}
-        </ul>
-      )
-    }
+    return (
+      <div className="cards">
+        <Match pattern={`${this.props.pathname}/:val`} render={(props) => <ActiveCard {...props} style={this.state.layout.selected}/>}/>
+        <Match exactly pattern={this.props.pathname} render={() => (
+          <ul role="presentation">
+            {this.props.options.map(option => (
+              <li key={option} role="presentation">
+                <Link 
+                  to={`${this.props.pathname}/${option}`}
+                  style={this.state.layout.card}
+                >{option}</Link>
+              </li>  
+            ))}
+          </ul>)}/>
+      </div>
+    )
   }
 }
